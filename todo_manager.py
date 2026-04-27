@@ -4,6 +4,12 @@
 def read_todo_file(file_path):
     """Reads tasks from a file. Returns a list of tasks."""
     # TODO: Implementar manejo de FileNotFoundError según README.md
+    try:
+        with open(file_path,'r') as archivo:
+            return archivo.read().splitlines()
+    except FileNotFoundError:
+        print(f"File {file_path} not found! Returning an empty to-do list.")
+        return []
     raise NotImplementedError
 
 
