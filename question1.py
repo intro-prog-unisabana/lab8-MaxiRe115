@@ -20,4 +20,4 @@ else:
         print("Error: Cannot divide by zero! Supports must be greater than zero.")
     else:
         load_per_support = newtons / soporte
-print(f"Load per support point: {load_per_support:.2f} N")   
+        print(f"Load per support point: {load_per_support:.2f} N")   
