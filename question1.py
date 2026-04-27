@@ -5,13 +5,14 @@ Implementa una CLI que calcule carga por punto de soporte.
 
 # TODO: Implementar según README.md
 import sys
-if len(sys.argv) > 1:
+if len(sys.argv) != 3:
+    
     try:
-        newtons = sys.argv[1]
+        newtons = float(sys.argv[1])
     except ValueError:
         print("Error: Invalid input! Enter numeric values only.")
     try:
-        soporte = sys.argv[2]
+        soporte = float(sys.argv[2])
     except ValueError:
         print("Error: Invalid input! Enter numeric values only.")
     try:
