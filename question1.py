@@ -18,4 +18,4 @@ if len(sys.argv) > 1:
         load_per_support = newtons / soporte
     except ZeroDivisionError:
         print("Error: Cannot divide by zero! Supports must be greater than zero.")
-print(f"Load per support point: {load_per_support:.f} N")   
+print(f"Load per support point: {load_per_support:.2f} N")   
