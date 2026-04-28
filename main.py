@@ -20,38 +20,39 @@ Examples:
   python main.py tasks.txt add "Call mom" remove "Take out trash" view""")
 elif len(sys.argv) == 2:
     pass
-elif len(sys.argv) < 2:
-    print("Insufficient arguments provided!")
 else:
     try:
         file_path = sys.argv[1]
-        command = sys.argv[2]
+        args = iter(sys.argv[2:])
         tasks = read_todo_file(file_path)
-        if command == "add":
-            try:
-                task = sys.argv[3]
-                tasks.append(task)
-                write_todo_file(file_path, tasks)
-                print(f'Task "{task}" added.')
-            except IndexError:
-                print('Task description required for "add".')
-        elif command == "remove":
-            try:
-                task = sys.argv[3]
+        for command in args:
+            if command == "add":
                 try:
-                    tasks.remove(task)
-                    write_todo_file(file_path, tasks)
-                    print(f'Task "{task}" removed.')
-                except ValueError:
-                    print(f'Task "{task}" not found.')
-            except IndexError:
-                print('Task description required for "remove".')
-        elif command == "view":
-            print("Tasks:")
-            for task in tasks:
-                print(task)
-        else:
-            print("Command not found!")
+                    task = next(args)
+                    tasks.append(task)
+                    print(f'Task "{task}" added.')
+                except StopIteration:
+                    print('Task description required for "add".')
+                    break
+            elif command == "remove":
+                try:
+                    task = next(args)
+                    try:
+                        tasks.remove(task)
+                        print(f'Task "{task}" removed.')
+                    except ValueError:
+                        print(f'Task "{task}" not found.')
+                except StopIteration:
+                    print('Task description required for "remove".')
+                    break
+            elif command == "view":
+                print("Tasks:")
+                for task in tasks:
+                    print(task)
+            else:
+                print("Command not found!")
+                break
+        write_todo_file(file_path, tasks)
     except Exception:
         pass
         
