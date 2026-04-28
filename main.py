@@ -25,6 +25,7 @@ else:
         file_path = sys.argv[1]
         args = iter(sys.argv[2:])
         tasks = read_todo_file(file_path)
+        error = False
         for command in args:
             if command == "add":
                 try:
@@ -33,6 +34,7 @@ else:
                     print(f'Task "{task}" added.')
                 except StopIteration:
                     print('Task description required for "add".')
+                    error = True
                     break
             elif command == "remove":
                 try:
@@ -44,6 +46,7 @@ else:
                         print(f'Task "{task}" not found.')
                 except StopIteration:
                     print('Task description required for "remove".')
+                    error = True
                     break
             elif command == "view":
                 print("Tasks:")
@@ -51,8 +54,10 @@ else:
                     print(task)
             else:
                 print("Command not found!")
+                error = True
                 break
-        write_todo_file(file_path, tasks)
+        if not error:
+            write_todo_file(file_path, tasks)
     except Exception:
         pass
         
