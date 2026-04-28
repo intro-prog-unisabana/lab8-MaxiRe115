@@ -18,7 +18,9 @@ Examples:
   python main.py tasks.txt remove "Do laundry"
   python main.py tasks.txt view
   python main.py tasks.txt add "Call mom" remove "Take out trash" view""")
-elif len(sys.argv) < 3:
+elif len(sys.argv) == 2:
+    pass
+elif len(sys.argv) < 2:
     print("Insufficient arguments provided!")
 else:
     try:
@@ -31,6 +33,9 @@ else:
                 tasks.append(task)
                 write_todo_file(file_path, tasks)
                 print(f'Task "{task}" added.')
+                print("Tasks:")
+                for t in task:
+                    print(t)
             except IndexError:
                 print('Task description required for "add".')
         elif command == "remove":
@@ -45,6 +50,8 @@ else:
             except IndexError:
                 print('Task description required for "remove".')
         elif command == "view":
+            task = read_todo_file(file_path)
+            write_todo_file(file_path, task)
             print("Tasks:")
             for task in tasks:
                 print(task)
