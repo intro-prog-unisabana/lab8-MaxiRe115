@@ -29,4 +29,15 @@ else:
             print(task)
     else:
         print("Command not found!")
+    if command == "add":
+        if len(sys.argv) < 4:
+            print('Task description required for "add".')
+        else:
+            task = sys.argv[3]
+            tasks = read_todo_file(file_path)
+            tasks.append(task)
+            write_todo_file(file_path, tasks)
+            print(f'Task "{task}" added.')
+    else:
+        print("Command not found!")
         
