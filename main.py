@@ -23,45 +23,33 @@ elif len(sys.argv) < 3:
 else:
     try:
         file_path = sys.argv[1]
-        args = sys.argv[2]
+        command = sys.argv[2]
         tasks = read_todo_file(file_path)
-        i = 0
-        modified = False
-        while i < len(args):
-            command = args[i]
-            if command == "add":
+        if command == "add":
+            try:
+                task = sys.argv[3]
+                tasks.append(task)
+                write_todo_file(file_path, tasks)
+                print(f'Task "{task}" added.')
+            except IndexError:
+                print('Task description required for "add".')
+        elif command == "remove":
+            try:
+                task = sys.argv[3]
                 try:
-                    task = args[i + 1]
-                    tasks.append(task)
-                    print(f'Task "{task}" added.')
-                    modified = True
-                    i += 2
-                except IndexError:
-                    print('Task description required for "add".')
-                    break
-            elif command == "remove":
-                try:
-                    task = args[i + 1]
-                    try:
-                        tasks.remove(task)
-                        print(f'Task "{task}" removed.')
-                        modified = True
-                    except ValueError:
-                        print(f'Task "{task}" not found.')
-                    i += 2
-                except IndexError:
-                    print('Task description required for "remove".')
-                    break
-            elif command == "view":
-                print("Tasks:")
-                for task in tasks:
-                    print(task)
-                i += 1
-            else:
-                print("Command not found!")
-                break
-        if modified:
-            write_todo_file(file_path, tasks)
+                    tasks.remove(task)
+                    write_todo_file(file_path, tasks)
+                    print(f'Task "{task}" removed.')
+                except ValueError:
+                    print(f'Task "{task}" not found.')
+            except IndexError:
+                print('Task description required for "remove".')
+        elif command == "view":
+            print("Tasks:")
+            for task in tasks:
+                print(task)
+        else:
+            print("Command not found!")
     except Exception:
         pass
         
