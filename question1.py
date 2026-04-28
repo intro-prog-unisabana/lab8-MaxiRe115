@@ -10,14 +10,11 @@ if len(sys.argv) != 3:
 else:
     try:
         newtons = float(sys.argv[1])
-    except ValueError:
-        print("Error: Invalid input! Enter numeric values only.")
-    try:
         soporte = float(sys.argv[2])
+        if soporte == 0:
+            print("Error: Cannot divide by zero! Supports must be greater than zero.")
+        else:
+            load_per_support = newtons / soporte
+            print(f"Load per support point: {load_per_support:.2f} N")
     except ValueError:
         print("Error: Invalid input! Enter numeric values only.")
-    if soporte == 0:
-        print("Error: Cannot divide by zero! Supports must be greater than zero.")
-    else:
-        load_per_support = newtons / soporte
-        print(f"Load per support point: {load_per_support:.2f} N")   
