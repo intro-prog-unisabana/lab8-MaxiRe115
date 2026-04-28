@@ -30,6 +30,18 @@ else:
                 print(f'Task "{task}" added.')
             except IndexError:
                 print('Task description required for "add".')
+        elif command == "remove":
+            try:
+                task = sys.argv[3]
+                tasks = read_todo_file(file_path)
+                try:
+                    tasks.remove(task)
+                    write_todo_file(file_path, tasks)
+                    print(f'Task "{task}" removed.')
+                except ValueError:
+                    print(f'Task "{task}" not found.')
+            except IndexError:
+                print('Task description required for "remove".')
         else:
             print("Command not found!")
     except Exception:
