@@ -17,3 +17,15 @@ try:
         print("Insufficient arguments provided!")
 except IndexError as e:
     print(e)
+if len(sys.argv) == 3:
+    try:
+        if sys.argv[2] == 'view':
+            print("\nTasks:")
+            tareas = read_todo_file(archivo)
+            for x in tareas:
+                print(x)
+    except ValueError:
+        print("Command not found!")
+else:
+    pass
+        
