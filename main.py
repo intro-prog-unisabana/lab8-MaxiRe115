@@ -3,41 +3,35 @@
 # TODO: Implementar CLI según README.md
 import sys
 from todo_manager import read_todo_file, write_todo_file
-try:
-    if len(sys.argv) >= 2:
-        archivo = sys.argv[1]
-        print("Command-line arguments:")
-        for i in archivo:
-            print(i)
-        print("\nTasks:")
-        tareas = read_todo_file(archivo)
-        for x in tareas:
-            print(x)
-    else:
-        print("Insufficient arguments provided!")
-except IndexError as e:
-    print(e)
-if len(sys.argv) < 3:
-    pass  
+if len(sys.argv) == 1:
+    print("Insufficient arguments provided!")
+elif sys.argv[1] == "--help":
+    print("Usage: python main.py <file_path> <command> [arguments]...")
+    print('add "task"')
+    print('remove "task"')
+    print("view")
+elif len(sys.argv) == 2:
+    pass
 else:
-    file_path = sys.argv[1]
-    command = sys.argv[2]
-    if command == "view":
-        tasks = read_todo_file(file_path)
-        print("Tasks:")
-        for task in tasks:
-            print(task)
-    else:
-        print("Command not found!")
-    if command == "add":
-        if len(sys.argv) < 4:
-            print('Task description required for "add".')
-        else:
-            task = sys.argv[3]
+    try:
+        file_path = sys.argv[1]
+        command = sys.argv[2]
+        if command == "view":
             tasks = read_todo_file(file_path)
-            tasks.append(task)
-            write_todo_file(file_path, tasks)
-            print(f'Task "{task}" added.')
-    else:
-        print("Command not found!")
+            print("Tasks:")
+            for task in tasks:
+                print(task)
+        elif command == "add":
+            try:
+                task = sys.argv[3]  # puede lanzar IndexError
+                tasks = read_todo_file(file_path)
+                tasks.append(task)
+                write_todo_file(file_path, tasks)
+                print(f'Task "{task}" added.')
+            except IndexError:
+                print('Task description required for "add".')
+        else:
+            print("Command not found!")
+    except Exception:
+        pass
         
